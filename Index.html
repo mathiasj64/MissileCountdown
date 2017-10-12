@@ -9,15 +9,11 @@
 </head>
 
 <body>
-<<<<<<< HEAD
     <div class="container">
         <br>
         <div id="counter">
-            Fart i knob:<input id="inputSpeedKnots" type="number"> Afstand i meter:<input id="inputDistanceMeters" type="number">
-=======
-    Fart i knob:<input id="inputSpeedKnots" type="number"> 
-    Afstand i nautiske mil:<input id="inputDistanceNauticMile" type="number">
->>>>>>> 836bc97ce6251f93fdbc67477ed3c26939f68d98
+            Fart i knob:<input id="inputSpeedKnots" type="number"> 
+            Afstand i nautiske mil:<input id="inputDistanceNauticMile" type="number">
 
             <button onclick="buttonClicked()">Udregn tid</button>
 
@@ -26,17 +22,18 @@
         <hr>
 
         <button onclick="startCounter()">Start Nedtælling</button>
-        <button onclick="stopCounter()">Stop</button> 
+        <button onclick="stopCounter()">Stop</button>
         <button onclick="resetCounter()">Nulstil</button>
         <button onclick="clear()">Clear</button>
 
         <br>
-        <br> Timer: <label id="result"></label>
+        <br> Timer: 
+        <br>
+        <label style="font-size: 30px;" id="result"></label>
     </div>
 </body>
 
 <script>
-    
     var result;
 
     function buttonClicked() {
