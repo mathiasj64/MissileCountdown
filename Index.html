@@ -12,24 +12,26 @@
     <div class="container">
         <br>
         <div id="counter">
-            Fart i knob:<input id="inputSpeedKnots" type="number"> 
-            Afstand i nautiske mil:<input id="inputDistanceNauticMile" type="number">
+            Fart i knob:<input id="inputSpeedKnots" type="number"> Afstand i nautiske mil:<input id="inputDistanceNauticMile"
+                type="number">
 
             <button onclick="buttonClicked()">Udregn tid</button>
 
         </div>
 
         <hr>
+        Timer:
+        <br>
+        <label style="font-size: 30px;" id="result"></label>
 
-        <button onclick="startCounter()">Start Nedtælling</button>
-        <button onclick="stopCounter()">Stop</button>
+        <div id="startstop">
+            <button onclick="startCounter()">Start Nedtælling</button>
+        </div>
+        <br>
         <button onclick="resetCounter()">Nulstil</button>
         <button onclick="clear()">Clear</button>
 
         <br>
-        <br> Timer: 
-        <br>
-        <label style="font-size: 30px;" id="result"></label>
     </div>
 </body>
 
@@ -61,6 +63,17 @@
 
     function startCounter() {
 
+        if($("#inputSpeedKnots").val() === '' || $("#inputDistanceNauticMile").val() === '') {
+            alert("Husk at udfyld alle felter");
+            return;
+        }
+
+        $("#startstop").empty();
+        $("#startstop")
+            .append($('<button onclick="stopCounter()">')
+                .append("Stop")
+            );
+
         counter = setInterval(timer, 10);
 
         function timer() {
@@ -79,6 +92,11 @@
     }
 
     function stopCounter() {
+        $("#startstop").empty();
+        $("#startstop")
+            .append($('<button onclick="startCounter()">')
+                .append("Start Nedtælling")
+            );
         clearInterval(counter);
     }
 
