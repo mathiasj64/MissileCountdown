@@ -7,29 +7,44 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
+<style>
+    button {
+        width: 100px;
+        height: 50px;
+    }
+
+    #resultBox {
+        border: 1px solid black; 
+        font-size: 40px; 
+        width: 200px; 
+        margin: auto;
+    }
+</style>
 
 <body>
-    <div class="container">
+    <div class="container" style="text-align: center">
         <br>
         <div id="counter">
-            Fart i knob:<input id="inputSpeedKnots" type="number"> Afstand i nautiske mil:<input id="inputDistanceNauticMile"
-                type="number">
+            Fart i knob:
+            <input id="inputSpeedKnots" type="number"> Afstand i nautiske mil:
+            <input id="inputDistanceNauticMile" type="number">
 
             <button onclick="buttonClicked()">Udregn tid</button>
 
         </div>
 
-        <hr>
-        Timer:
+        <hr> Countdown: (Minutter : Sekunder)
         <br>
-        <label style="font-size: 30px;" id="result"></label>
-
-        <div id="startstop">
-            <button onclick="startCounter()">Start Nedtælling</button>
+        <div id="resultBox">
+            <label id="result"></label>
         </div>
         <br>
-        <button onclick="resetCounter()">Nulstil</button>
-        <button onclick="clear()">Clear</button>
+
+        <div id="startstop">
+            <button onclick="startCounter()">Start</button>
+        </div>
+        <br>
+        <button onclick="clearTimer()">Clear</button>
 
         <br>
     </div>
@@ -42,32 +57,38 @@
         var speedKnots = $("#inputSpeedKnots").val();
         var distanceNauticalMile = $("#inputDistanceNauticMile").val();
 
+        if (speedKnots === '' || distanceNauticalMile === '') {
+            alert("Husk at udfyld alle felter");
+            return;
+        }
+
         result = calculateTime(speedKnots, distanceNauticalMile);
 
-        console.log(result);
-
-        $("#result").text(formatTime(result) + " sekunder");
+        $("#result").text(formatTime(result));
     }
 
     function calculateTime(speedKnots, distanceNauticalMile) {
 
-        var speedMetersPerSecond = speedKnots / 1.943845;
+        var speedMetersPerSecond = speedKnots / 1.943; //Before: 1.943845
         var distanceMeters = distanceNauticalMile * 1852;
 
         var timeSeconds = distanceMeters / speedMetersPerSecond;
 
-        return timeSeconds.toFixed(4);
+        return timeSeconds.toFixed(2);
     }
 
     function formatTime(seconds) {
-        return Math.floor(seconds / 60 ) + ":" + seconds % 60;
+        return Math.floor(seconds / 60) + ":" + (seconds % 60).toFixed(2);
     }
 
     var counter;
 
     function startCounter() {
 
-        if($("#inputSpeedKnots").val() === '' || $("#inputDistanceNauticMile").val() === '') {
+        var inputSpeed = $("#inputSpeedKnots").val();
+        var inputDistance = $("#inputDistanceNauticMile").val();
+
+        if (inputSpeed === '' || inputDistance === '') {
             alert("Husk at udfyld alle felter");
             return;
         }
@@ -87,10 +108,10 @@
             if (result < 0) {
                 result = 0;
                 clearInterval(counter);
-                $("#result").text(formatTime(result) + " sekunder");
+                $("#result").text(formatTime(result));
                 return;
             }
-            $("#result").text(formatTime(result) + " sekunder");
+            $("#result").text(formatTime(result));
         }
 
     }
@@ -99,19 +120,14 @@
         $("#startstop").empty();
         $("#startstop")
             .append($('<button onclick="startCounter()">')
-                .append("Start Nedtælling")
+                .append("Start")
             );
         clearInterval(counter);
     }
 
-    function resetCounter() {
-        buttonClicked();
-    }
-
-    function clear() {
+    function clearTimer() {
         $("#result").text('');
     }
-
 </script>
 
 </html>
