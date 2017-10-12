@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Missile Calculator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body>
+    Fart i knob:<input id="inputSpeedKnots" type="number"> 
+    Afstand i meter:<input id="inputDistanceMeters" type="number">
+
+    <div id="counter">
+
+        <button onclick="buttonClicked()">Udregn tid</button>
+
+    </div>
+
+    <label id="result"></label>
+</body>
+
+<script>
+    function buttonClicked() {
+        var speedKnots = $("#inputSpeedKnots").val();
+        var distanceMeters = $("#inputDistanceMeters").val();
+
+        var result = calculateTime(speedKnots, distanceMeters);
+
+        console.log(result);
+        $("#result").text(result + " sekunder");
+    }
+
+    function calculateTime(speedKnots, distanceMeters) {
+        var speedMetersPerSecond = speedKnots / 1.943845;
+
+        var timeSeconds = distanceMeters / speedMetersPerSecond;
+
+        return timeSeconds;
+    }
+
+</script>
+
+</html>
