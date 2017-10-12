@@ -9,26 +9,37 @@
 </head>
 
 <body>
-    Fart i knob:<input id="inputSpeedKnots" type="number"> 
-    Afstand i meter:<input id="inputDistanceMeters" type="number">
+    <div class="container">
+        <br>
+        <div id="counter">
+            Fart i knob:<input id="inputSpeedKnots" type="number"> Afstand i meter:<input id="inputDistanceMeters" type="number">
 
-    <div id="counter">
+            <button onclick="buttonClicked()">Udregn tid</button>
 
-        <button onclick="buttonClicked()">Udregn tid</button>
+        </div>
 
+        <hr>
+
+        <button onclick="startCounter()">Start Nedtælling</button>
+        <button onclick="stopCounter()">Stop</button> 
+        <button onclick="resetCounter()">Nulstil</button>
+        <button onclick="clear()">Clear</button>
+
+        <br>
+        <br> Timer: <label id="result"></label>
     </div>
-
-    <label id="result"></label>
 </body>
 
 <script>
+    var result;
     function buttonClicked() {
         var speedKnots = $("#inputSpeedKnots").val();
         var distanceMeters = $("#inputDistanceMeters").val();
 
-        var result = calculateTime(speedKnots, distanceMeters);
+        result = calculateTime(speedKnots, distanceMeters);
 
         console.log(result);
+
         $("#result").text(result + " sekunder");
     }
 
@@ -37,7 +48,40 @@
 
         var timeSeconds = distanceMeters / speedMetersPerSecond;
 
-        return timeSeconds;
+        return timeSeconds.toFixed(4);
+    }
+
+    var counter;
+
+    function startCounter() {
+
+        counter = setInterval(timer, 10);
+
+        function timer() {
+
+            result -= 0.01;
+
+            if (result < 0) {
+                result = 0;
+                clearInterval(counter);
+                $("#result").text(result + " sekunder");
+                return;
+            }
+            $("#result").text(result + " sekunder");
+        }
+
+    }
+
+    function stopCounter() {
+        clearInterval(counter);
+    }
+
+    function resetCounter() {
+        buttonClicked();
+    }
+
+    function clear() {
+        $("#result").text('');
     }
 
 </script>
