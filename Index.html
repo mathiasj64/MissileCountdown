@@ -10,7 +10,7 @@
 
 <body>
     Fart i knob:<input id="inputSpeedKnots" type="number"> 
-    Afstand i meter:<input id="inputDistanceMeters" type="number">
+    Afstand i nautiske mil:<input id="inputDistanceNauticMile" type="number">
 
     <div id="counter">
 
@@ -24,16 +24,18 @@
 <script>
     function buttonClicked() {
         var speedKnots = $("#inputSpeedKnots").val();
-        var distanceMeters = $("#inputDistanceMeters").val();
+        var distanceNauticalMile = $("#inputDistanceNauticMile").val();
 
-        var result = calculateTime(speedKnots, distanceMeters);
+        var result = calculateTime(speedKnots, distanceNauticalMile);
 
         console.log(result);
         $("#result").text(result + " sekunder");
     }
 
-    function calculateTime(speedKnots, distanceMeters) {
+    function calculateTime(speedKnots, distanceNauticalMile) {
+
         var speedMetersPerSecond = speedKnots / 1.943845;
+        var distanceMeters = distanceNauticalMile * 1852;
 
         var timeSeconds = distanceMeters / speedMetersPerSecond;
 
